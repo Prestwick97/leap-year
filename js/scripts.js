@@ -1,21 +1,25 @@
-$(document).ready(function(){
-  $("form#stress-survey").submit(function(event){
+var leapYear = function(year) {
+  if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+$(document).ready(function() {
+  $("form#leap-year").submit(function(event) {
     event.preventDefault();
-    $("#need-work").show();
-    $("input:checkbox[name=warning-signs]:checked").each(function(){
-      var workTransportationMode = $(this).val();
-      $('#need-work').append(workTransportationMode + "<br>");
-    });
-    $("#seek-help").show();
-    $("input:checkbox[name=health-symptoms]:checked").each(function(){
-      var funTransportationMode = $(this).val();
-      $('#seek-help').append(funTransportationMode + "<br>");
-        });
-    $("#doing-good").show();
-    $("input:checkbox[name=coping-methods]:checked").each(function(){
-      var funTransportationMode = $(this).val();
-      $('#doing-good').append(funTransportationMode + "<br>");  
-    });
-    $('#stress-survey').hide();
+    var year = parseInt($("input#year").val());
+    var result = leapYear(year);
+
+    $(".year").text(year);
+
+    if (!result) {  // same as writing if (result === false)
+      $(".not").text("not");
+    } else {
+      $(".not").text("");
+    }
+
+    $("#result").show();
   });
 });
